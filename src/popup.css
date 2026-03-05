@@ -11,10 +11,15 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
-  width: 420px;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+  max-width: 420px;
   min-height: 460px;
+  overflow-x: hidden;
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
@@ -32,6 +37,7 @@ body[data-theme="dark"] {
 .popup {
   display: flex;
   flex-direction: column;
+  width: 100%;
   min-height: 460px;
 }
 
@@ -43,7 +49,7 @@ body[data-theme="dark"] {
 
 .header h1 {
   margin: 0;
-  font-size: 52px;
+  font-size: clamp(40px, 11vw, 52px);
   font-weight: 800;
   letter-spacing: 1px;
 }
@@ -56,24 +62,25 @@ body[data-theme="dark"] {
 
 .label {
   margin: 0;
-  font-size: 28px;
+  font-size: clamp(20px, 6vw, 28px);
   font-weight: 700;
 }
 
 .time {
   margin-top: 12px;
-  font-size: 94px;
+  font-size: clamp(52px, 19vw, 94px);
   line-height: 1;
   font-weight: 800;
   color: var(--accent);
-  letter-spacing: 2px;
+  letter-spacing: clamp(0px, 0.5vw, 2px);
 }
 
 .date {
   margin-top: 12px;
-  font-size: 34px;
+  font-size: clamp(24px, 7vw, 34px);
   font-weight: 700;
   color: var(--muted);
+  overflow-wrap: anywhere;
 }
 
 .settings {
@@ -139,10 +146,11 @@ body[data-theme="dark"] {
   background: transparent;
   color: var(--muted);
   padding: 16px 10px;
-  font-size: 24px;
+  font-size: clamp(20px, 5vw, 24px);
   font-weight: 700;
   text-align: center;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .footer-btn {
@@ -157,7 +165,35 @@ body[data-theme="dark"] {
 }
 
 @media (max-width: 460px) {
+  html,
   body {
-    width: 100%;
+    min-width: 300px;
+  }
+
+  .header {
+    padding: 20px 14px 14px;
+  }
+
+  .clock-card {
+    padding: 18px 14px 10px;
+  }
+
+  .settings {
+    padding: 14px;
+  }
+
+  .switch-grid {
+    gap: 8px;
+  }
+
+  .switch-btn {
+    font-size: 15px;
+    padding: 9px 8px;
+  }
+
+  .footer-link,
+  .footer-btn {
+    padding: 14px 8px;
+    font-size: 18px;
   }
 }

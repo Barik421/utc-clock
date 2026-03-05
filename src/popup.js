@@ -1,5 +1,7 @@
 const STORAGE_KEY = "utc_clock_language";
 const STORAGE_THEME_KEY = "utc_clock_theme";
+const POPUP_MIN_WIDTH = 320;
+const POPUP_MAX_WIDTH = 420;
 
 const dictionary = {
   en: {
@@ -43,6 +45,14 @@ const el = {
   themeLight: document.getElementById("themeLight"),
   themeDark: document.getElementById("themeDark")
 };
+
+function ensurePopupWidth() {
+  const safeWidth = Math.max(
+    POPUP_MIN_WIDTH,
+    Math.min(POPUP_MAX_WIDTH, window.screen?.availWidth ? window.screen.availWidth - 32 : POPUP_MAX_WIDTH)
+  );
+  document.documentElement.style.width = `${safeWidth}px`;
+}
 
 function getDateFormatter(language) {
   return new Intl.DateTimeFormat(language === "uk" ? "uk-UA" : "en-US", {
@@ -108,6 +118,7 @@ function setSettingsOpen(value) {
 }
 
 function initState() {
+  ensurePopupWidth();
   chrome.storage.sync.get([STORAGE_KEY, STORAGE_THEME_KEY], (result) => {
     const saved = result[STORAGE_KEY];
     const savedTheme = result[STORAGE_THEME_KEY];
