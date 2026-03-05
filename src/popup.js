@@ -1,7 +1,7 @@
 const STORAGE_KEY = "utc_clock_language";
 const STORAGE_THEME_KEY = "utc_clock_theme";
 const POPUP_MIN_WIDTH = 320;
-const POPUP_MAX_WIDTH = 420;
+const POPUP_MAX_WIDTH = 400;
 
 const dictionary = {
   en: {

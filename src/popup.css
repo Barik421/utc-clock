@@ -17,8 +17,7 @@ body {
   padding: 0;
   width: 100%;
   min-width: 320px;
-  max-width: 420px;
-  min-height: 460px;
+  max-width: 400px;
   overflow-x: hidden;
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: var(--bg);
@@ -38,37 +37,35 @@ body[data-theme="dark"] {
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 460px;
 }
 
 .header {
   text-align: center;
-  padding: 24px 20px 16px;
+  padding: 18px 16px 12px;
   border-bottom: 1px solid var(--border);
 }
 
 .header h1 {
   margin: 0;
-  font-size: clamp(40px, 11vw, 52px);
+  font-size: clamp(34px, 10vw, 46px);
   font-weight: 800;
   letter-spacing: 1px;
 }
 
 .clock-card {
-  flex: 1;
   text-align: center;
-  padding: 24px 20px 12px;
+  padding: 18px 16px 16px;
 }
 
 .label {
   margin: 0;
-  font-size: clamp(20px, 6vw, 28px);
+  font-size: clamp(18px, 5.6vw, 24px);
   font-weight: 700;
 }
 
 .time {
-  margin-top: 12px;
-  font-size: clamp(52px, 19vw, 94px);
+  margin-top: 8px;
+  font-size: clamp(44px, 17vw, 78px);
   line-height: 1;
   font-weight: 800;
   color: var(--accent);
@@ -76,8 +73,8 @@ body[data-theme="dark"] {
 }
 
 .date {
-  margin-top: 12px;
-  font-size: clamp(24px, 7vw, 34px);
+  margin-top: 8px;
+  font-size: clamp(18px, 5.6vw, 28px);
   font-weight: 700;
   color: var(--muted);
   overflow-wrap: anywhere;
@@ -85,7 +82,7 @@ body[data-theme="dark"] {
 
 .settings {
   border-top: 1px solid var(--border);
-  padding: 16px 20px 20px;
+  padding: 14px 16px 14px;
   background: var(--panel);
   display: none;
 }
@@ -95,8 +92,8 @@ body[data-theme="dark"] {
 }
 
 .settings-title {
-  margin: 0 0 12px;
-  font-size: 20px;
+  margin: 0 0 10px;
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -106,7 +103,7 @@ body[data-theme="dark"] {
 
 .settings-subtitle {
   margin: 0 0 8px;
-  font-size: 15px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -119,10 +116,10 @@ body[data-theme="dark"] {
 .switch-btn {
   border: 2px solid var(--accent);
   border-radius: 14px;
-  padding: 10px 12px;
+  padding: 9px 10px;
   background: transparent;
   color: var(--accent);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -145,8 +142,8 @@ body[data-theme="dark"] {
   border-right: 1px solid var(--border);
   background: transparent;
   color: var(--muted);
-  padding: 16px 10px;
-  font-size: clamp(20px, 5vw, 24px);
+  padding: 12px 8px;
+  font-size: clamp(16px, 4.8vw, 22px);
   font-weight: 700;
   text-align: center;
   text-decoration: none;
@@ -171,15 +168,15 @@ body[data-theme="dark"] {
   }
 
   .header {
-    padding: 20px 14px 14px;
+    padding: 16px 12px 10px;
   }
 
   .clock-card {
-    padding: 18px 14px 10px;
+    padding: 14px 12px 12px;
   }
 
   .settings {
-    padding: 14px;
+    padding: 12px;
   }
 
   .switch-grid {
@@ -187,13 +184,13 @@ body[data-theme="dark"] {
   }
 
   .switch-btn {
-    font-size: 15px;
-    padding: 9px 8px;
+    font-size: 14px;
+    padding: 8px 8px;
   }
 
   .footer-link,
   .footer-btn {
-    padding: 14px 8px;
-    font-size: 18px;
+    padding: 10px 6px;
+    font-size: 16px;
   }
 }
