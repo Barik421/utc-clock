@@ -88,7 +88,7 @@ function updateClock() {
 
   if (minuteKey !== lastToolbarMinute) {
     lastToolbarMinute = minuteKey;
-    chrome.runtime.sendMessage({ type: "toolbar-time-updated" });
+    notifyToolbarUpdate();
   }
 }
 
@@ -134,10 +134,20 @@ function setTheme(theme) {
   updateLanguageUi();
 }
 
+function notifyToolbarUpdate() {
+  try {
+    chrome.runtime.sendMessage({ type: "toolbar-time-updated" }, () => {
+      void chrome.runtime.lastError;
+    });
+  } catch (_error) {
+    // Ignore transient messaging errors when background is unavailable.
+  }
+}
+
 function setToolbarTimeEnabled(enabled) {
   toolbarTimeEnabled = enabled;
   chrome.storage.sync.set({ [STORAGE_TOOLBAR_TIME_KEY]: enabled }, () => {
-    chrome.runtime.sendMessage({ type: "toolbar-time-updated" });
+    notifyToolbarUpdate();
   });
   updateLanguageUi();
 }
