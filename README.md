@@ -26,8 +26,3 @@ git add .
 git commit -m "feat: update utc clock"
 git push
 ```
-
-## Testing before publish
-
-See:
-- `TESTING_BEFORE_PUBLISH.md`

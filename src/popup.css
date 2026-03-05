@@ -39,33 +39,20 @@ body[data-theme="dark"] {
   width: 100%;
 }
 
-.header {
-  text-align: center;
-  padding: 18px 16px 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.header h1 {
-  margin: 0;
-  font-size: clamp(34px, 10vw, 46px);
-  font-weight: 800;
-  letter-spacing: 1px;
-}
-
 .clock-card {
   text-align: center;
-  padding: 18px 16px 16px;
+  padding: 14px 16px 12px;
 }
 
 .label {
   margin: 0;
-  font-size: clamp(18px, 5.6vw, 24px);
+  font-size: clamp(19px, 5.8vw, 25px);
   font-weight: 700;
 }
 
 .time {
-  margin-top: 8px;
-  font-size: clamp(44px, 17vw, 78px);
+  margin-top: 6px;
+  font-size: clamp(58px, 20vw, 96px);
   line-height: 1;
   font-weight: 800;
   color: var(--accent);
@@ -73,8 +60,8 @@ body[data-theme="dark"] {
 }
 
 .date {
-  margin-top: 8px;
-  font-size: clamp(18px, 5.6vw, 28px);
+  margin-top: 6px;
+  font-size: clamp(22px, 6.4vw, 34px);
   font-weight: 700;
   color: var(--muted);
   overflow-wrap: anywhere;
@@ -167,12 +154,8 @@ body[data-theme="dark"] {
     min-width: 300px;
   }
 
-  .header {
-    padding: 16px 12px 10px;
-  }
-
   .clock-card {
-    padding: 14px 12px 12px;
+    padding: 12px 12px 10px;
   }
 
   .settings {

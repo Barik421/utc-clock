@@ -1,72 +1,22 @@
-const ALARM_NAME = "update_utc_toolbar_icon";
+const ALARM_NAME = "update_utc_badge";
 const ALARM_PERIOD_MINUTES = 1;
-const ICON_SIZES = [16, 32];
 
-function pad2(value) {
-  return String(value).padStart(2, "0");
-}
-
-function getUtcTimeLabel() {
+function getUtcBadgeTime() {
   const now = new Date();
-  return `${pad2(now.getUTCHours())}:${pad2(now.getUTCMinutes())}`;
+  const hours = now.getUTCHours();
+  const mins = String(now.getUTCMinutes()).padStart(2, "0");
+  return `${hours}:${mins}`;
 }
 
-function roundRectPath(ctx, x, y, w, h, r) {
-  const radius = Math.min(r, w / 2, h / 2);
-  ctx.beginPath();
-  ctx.moveTo(x + radius, y);
-  ctx.lineTo(x + w - radius, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-  ctx.lineTo(x + w, y + h - radius);
-  ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-  ctx.lineTo(x + radius, y + h);
-  ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-  ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
-  ctx.closePath();
-}
+function updateToolbarClock() {
+  const badgeTime = getUtcBadgeTime();
 
-function drawIcon(size, label) {
-  const canvas = new OffscreenCanvas(size, size);
-  const ctx = canvas.getContext("2d");
-
-  ctx.clearRect(0, 0, size, size);
-
-  const margin = Math.max(1, Math.floor(size * 0.04));
-  const boxH = Math.floor(size * 0.78);
-  const boxY = Math.floor((size - boxH) / 2);
-
-  roundRectPath(ctx, margin, boxY, size - margin * 2, boxH, Math.floor(size * 0.22));
-  ctx.fillStyle = "#efe7d0";
-  ctx.fill();
-  ctx.lineWidth = Math.max(1, Math.floor(size * 0.06));
-  ctx.strokeStyle = "#7d654d";
-  ctx.stroke();
-
-  const dotR = Math.max(1, Math.floor(size * 0.06));
-  ctx.beginPath();
-  ctx.arc(size / 2, Math.floor(size * 0.12), dotR, 0, Math.PI * 2);
-  ctx.fillStyle = "#de2040";
-  ctx.fill();
-
-  ctx.fillStyle = "#1f2128";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = `700 ${Math.floor(size * 0.34)}px "Segoe UI", Arial, sans-serif`;
-  ctx.fillText(label, size / 2, size / 2 + Math.floor(size * 0.06));
-
-  return ctx.getImageData(0, 0, size, size);
-}
-
-function updateToolbarTime() {
-  const label = getUtcTimeLabel();
-  const imageData = {};
-  for (const size of ICON_SIZES) {
-    imageData[size] = drawIcon(size, label);
+  chrome.action.setBadgeBackgroundColor({ color: "#efe7d0" });
+  if (typeof chrome.action.setBadgeTextColor === "function") {
+    chrome.action.setBadgeTextColor({ color: "#1f2128" });
   }
-
-  chrome.action.setIcon({ imageData });
-  chrome.action.setTitle({ title: `UTC ${label}` });
+  chrome.action.setBadgeText({ text: badgeTime });
+  chrome.action.setTitle({ title: `UTC ${badgeTime}` });
 }
 
 function ensureAlarm() {
@@ -77,18 +27,18 @@ function ensureAlarm() {
 
 chrome.runtime.onInstalled.addListener(() => {
   ensureAlarm();
-  updateToolbarTime();
+  updateToolbarClock();
 });
 
 chrome.runtime.onStartup.addListener(() => {
   ensureAlarm();
-  updateToolbarTime();
+  updateToolbarClock();
 });
 
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === ALARM_NAME) {
-    updateToolbarTime();
+    updateToolbarClock();
   }
 });
 
-updateToolbarTime();
+updateToolbarClock();
