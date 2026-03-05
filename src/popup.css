@@ -1,0 +1,144 @@
+:root {
+  --bg: #e9e9ea;
+  --panel: #f2f2f3;
+  --text: #1f2128;
+  --muted: #4a4d57;
+  --accent: #de2040;
+  --border: #d5d6da;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 420px;
+  min-height: 460px;
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  min-height: 460px;
+}
+
+.header {
+  text-align: center;
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.clock-card {
+  flex: 1;
+  text-align: center;
+  padding: 24px 20px 12px;
+}
+
+.label {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.time {
+  margin-top: 12px;
+  font-size: 94px;
+  line-height: 1;
+  font-weight: 800;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+.date {
+  margin-top: 12px;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.settings {
+  border-top: 1px solid var(--border);
+  padding: 16px 20px 20px;
+  background: var(--panel);
+  display: none;
+}
+
+.settings.visible {
+  display: block;
+}
+
+.settings-title {
+  margin: 0 0 10px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.language-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.lang-btn {
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: 10px 12px;
+  background: transparent;
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lang-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.footer-link,
+.footer-btn {
+  border: none;
+  border-right: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  padding: 16px 10px;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.footer-btn {
+  border-right: 0;
+  cursor: pointer;
+}
+
+.footer-link:hover,
+.footer-btn:hover,
+.lang-btn:hover {
+  filter: brightness(0.95);
+}
+
+@media (max-width: 460px) {
+  body {
+    width: 100%;
+  }
+}

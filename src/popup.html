@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UTC Clock</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup" role="application" aria-label="UTC clock">
+      <header class="header">
+        <h1 id="title">UTC</h1>
+      </header>
+
+      <section class="clock-card">
+        <p id="labelNow" class="label"></p>
+        <div id="utcTime" class="time" aria-live="polite">00:00:00</div>
+        <div id="utcDate" class="date" aria-live="polite"></div>
+      </section>
+
+      <section id="settingsPanel" class="settings" aria-labelledby="settingsTitle">
+        <h2 id="settingsTitle" class="settings-title"></h2>
+        <div class="language-switch" role="group" aria-label="Language switch">
+          <button id="langEn" class="lang-btn active" type="button">English</button>
+          <button id="langUk" class="lang-btn" type="button">Українська</button>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <a id="openUtcLink" class="footer-link" href="https://time.is/UTC" target="_blank" rel="noreferrer noopener"></a>
+        <button id="toggleSettings" class="footer-btn" type="button"></button>
+      </footer>
+    </main>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

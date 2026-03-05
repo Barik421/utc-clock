@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "UTC Clock",
+  "description": "Simple UTC time popup with English and Ukrainian languages.",
+  "version": "1.0.0",
+  "action": {
+    "default_title": "UTC Clock",
+    "default_popup": "src/popup.html"
+  },
+  "permissions": ["storage"]
+}
