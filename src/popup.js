@@ -1,5 +1,6 @@
 const STORAGE_KEY = "utc_clock_language";
 const STORAGE_THEME_KEY = "utc_clock_theme";
+const STORAGE_TOOLBAR_TIME_KEY = "utc_clock_toolbar_time_enabled";
 const POPUP_MIN_WIDTH = 320;
 const POPUP_MAX_WIDTH = 400;
 
@@ -10,6 +11,9 @@ const dictionary = {
     settingsClose: "Close settings",
     language: "Language",
     theme: "Theme",
+    toolbarTime: "Toolbar time",
+    on: "On",
+    off: "Off",
     light: "Light",
     dark: "Dark",
     openUtc: "Open UTC"
@@ -20,6 +24,9 @@ const dictionary = {
     settingsClose: "Закрити налаштування",
     language: "Мова",
     theme: "Тема",
+    toolbarTime: "Час на іконці",
+    on: "Увімкнено",
+    off: "Вимкнено",
     light: "Світла",
     dark: "Темна",
     openUtc: "Відкрити UTC"
@@ -28,7 +35,9 @@ const dictionary = {
 
 let currentLanguage = "en";
 let currentTheme = "light";
+let toolbarTimeEnabled = true;
 let settingsOpen = false;
+let lastToolbarMinute = "";
 
 const el = {
   labelNow: document.getElementById("labelNow"),
@@ -38,12 +47,15 @@ const el = {
   settingsTitle: document.getElementById("settingsTitle"),
   languageTitle: document.getElementById("languageTitle"),
   themeTitle: document.getElementById("themeTitle"),
+  toolbarTimeTitle: document.getElementById("toolbarTimeTitle"),
   toggleSettings: document.getElementById("toggleSettings"),
   openUtcLink: document.getElementById("openUtcLink"),
   langEn: document.getElementById("langEn"),
   langUk: document.getElementById("langUk"),
   themeLight: document.getElementById("themeLight"),
-  themeDark: document.getElementById("themeDark")
+  themeDark: document.getElementById("themeDark"),
+  toolbarTimeOn: document.getElementById("toolbarTimeOn"),
+  toolbarTimeOff: document.getElementById("toolbarTimeOff")
 };
 
 function ensurePopupWidth() {
@@ -69,9 +81,15 @@ function updateClock() {
   const h = String(now.getUTCHours()).padStart(2, "0");
   const m = String(now.getUTCMinutes()).padStart(2, "0");
   const s = String(now.getUTCSeconds()).padStart(2, "0");
+  const minuteKey = `${now.getUTCHours()}:${m}`;
 
   el.utcTime.textContent = `${h}:${m}:${s}`;
   el.utcDate.textContent = getDateFormatter(currentLanguage).format(now);
+
+  if (minuteKey !== lastToolbarMinute) {
+    lastToolbarMinute = minuteKey;
+    chrome.runtime.sendMessage({ type: "toolbar-time-updated" });
+  }
 }
 
 function updateLanguageUi() {
@@ -80,15 +98,20 @@ function updateLanguageUi() {
   el.settingsTitle.textContent = t.settings;
   el.languageTitle.textContent = t.language;
   el.themeTitle.textContent = t.theme;
+  el.toolbarTimeTitle.textContent = t.toolbarTime;
   el.openUtcLink.textContent = t.openUtc;
   el.toggleSettings.textContent = settingsOpen ? t.settingsClose : t.settings;
   el.themeLight.textContent = t.light;
   el.themeDark.textContent = t.dark;
+  el.toolbarTimeOn.textContent = t.on;
+  el.toolbarTimeOff.textContent = t.off;
 
   el.langEn.classList.toggle("active", currentLanguage === "en");
   el.langUk.classList.toggle("active", currentLanguage === "uk");
   el.themeLight.classList.toggle("active", currentTheme === "light");
   el.themeDark.classList.toggle("active", currentTheme === "dark");
+  el.toolbarTimeOn.classList.toggle("active", toolbarTimeEnabled);
+  el.toolbarTimeOff.classList.toggle("active", !toolbarTimeEnabled);
 
   document.documentElement.lang = currentLanguage;
   updateClock();
@@ -111,6 +134,14 @@ function setTheme(theme) {
   updateLanguageUi();
 }
 
+function setToolbarTimeEnabled(enabled) {
+  toolbarTimeEnabled = enabled;
+  chrome.storage.sync.set({ [STORAGE_TOOLBAR_TIME_KEY]: enabled }, () => {
+    chrome.runtime.sendMessage({ type: "toolbar-time-updated" });
+  });
+  updateLanguageUi();
+}
+
 function setSettingsOpen(value) {
   settingsOpen = value;
   el.settingsPanel.classList.toggle("visible", settingsOpen);
@@ -119,15 +150,19 @@ function setSettingsOpen(value) {
 
 function initState() {
   ensurePopupWidth();
-  chrome.storage.sync.get([STORAGE_KEY, STORAGE_THEME_KEY], (result) => {
+  chrome.storage.sync.get([STORAGE_KEY, STORAGE_THEME_KEY, STORAGE_TOOLBAR_TIME_KEY], (result) => {
     const saved = result[STORAGE_KEY];
     const savedTheme = result[STORAGE_THEME_KEY];
+    const savedToolbarTime = result[STORAGE_TOOLBAR_TIME_KEY];
 
     if (saved === "uk" || saved === "en") {
       currentLanguage = saved;
     }
     if (savedTheme === "dark" || savedTheme === "light") {
       currentTheme = savedTheme;
+    }
+    if (typeof savedToolbarTime === "boolean") {
+      toolbarTimeEnabled = savedToolbarTime;
     }
 
     applyTheme(currentTheme);
@@ -145,5 +180,7 @@ el.langEn.addEventListener("click", () => setLanguage("en"));
 el.langUk.addEventListener("click", () => setLanguage("uk"));
 el.themeLight.addEventListener("click", () => setTheme("light"));
 el.themeDark.addEventListener("click", () => setTheme("dark"));
+el.toolbarTimeOn.addEventListener("click", () => setToolbarTimeEnabled(true));
+el.toolbarTimeOff.addEventListener("click", () => setToolbarTimeEnabled(false));
 
 initState();
