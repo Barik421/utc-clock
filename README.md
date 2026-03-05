@@ -8,7 +8,9 @@ Simple Chrome extension displaying live UTC time with seconds.
 - UTC date
 - Two languages: English (default) and Ukrainian
 - Language preference stored in Chrome sync storage
+- Light and Dark themes with saved preference
 - Red/gray popup style
+- Custom extension icons (`16/32/48/128`)
 
 ## Run locally
 
@@ -24,3 +26,8 @@ git add .
 git commit -m "feat: update utc clock"
 git push
 ```
+
+## Testing before publish
+
+See:
+- `TESTING_BEFORE_PUBLISH.md`

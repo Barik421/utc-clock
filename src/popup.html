@@ -20,9 +20,21 @@
 
       <section id="settingsPanel" class="settings" aria-labelledby="settingsTitle">
         <h2 id="settingsTitle" class="settings-title"></h2>
-        <div class="language-switch" role="group" aria-label="Language switch">
-          <button id="langEn" class="lang-btn active" type="button">English</button>
-          <button id="langUk" class="lang-btn" type="button">Українська</button>
+
+        <div class="settings-group">
+          <h3 id="languageTitle" class="settings-subtitle"></h3>
+          <div class="switch-grid" role="group" aria-label="Language switch">
+            <button id="langEn" class="switch-btn active" type="button">English</button>
+            <button id="langUk" class="switch-btn" type="button">Українська</button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <h3 id="themeTitle" class="settings-subtitle"></h3>
+          <div class="switch-grid" role="group" aria-label="Theme switch">
+            <button id="themeLight" class="switch-btn active" type="button">Light</button>
+            <button id="themeDark" class="switch-btn" type="button">Dark</button>
+          </div>
         </div>
       </section>
 
