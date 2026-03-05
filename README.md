@@ -19,10 +19,7 @@ Simple Chrome extension displaying live UTC time with seconds.
 3. Enable **Developer mode**.
 4. Click **Load unpacked** and select this folder.
 
-## Git workflow
+## Contact
 
-```bash
-git add .
-git commit -m "feat: update utc clock"
-git push
-```
+If you have suggestions or requests, contact the author directly:
+`mbrnvwork@gmail.com`
